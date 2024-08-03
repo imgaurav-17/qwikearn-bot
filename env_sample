@@ -1,0 +1,6 @@
+BOT_TOKEN= "add bot token here"
+ADMIN_IDS= "add admin id here"
+CURRENCY= "₹INR" 
+MONGODB_URL= "mongodb+srv://<username>:<password>@cluster0.mongodb.net/mydatabase?retryWrites=true&w=majority"
+CREATOR_NAME= " add your name which you want to show"
+CREATOR_USER= "your username without @ "

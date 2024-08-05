@@ -1098,22 +1098,30 @@ async function starter(ctx){
 
 async function sendJoined(ctx, data) {
     try {
-        let channels = data[0].channels
-        let text = "*⚠️ Must Join Our All Channels*\n\n✅ After Joining Click On '🟢 Joined'"
+        let channels = data[0].channels;
+        let text = "*⚠️ Must Join Our All Channels*\n\n✅ After Joining Click On '🟢 Joined'";
+
+        // Function to create a valid Telegram URL
+        function createTelegramUrl(username) {
+            if (username[0] === '@') {
+                return `https://t.me/${username.slice(1)}`;
+            }
+            return username;
+        }
 
         let inlineKeyboard = channels.map((channel, index) => {
-            return [{ text: `Channel ${index + 1}`, url: channel }]
+            let url = createTelegramUrl(channel);
+            return [{ text: `Channel ${index + 1}`, url: url }];
         });
 
         inlineKeyboard.push([{ text: '🟢 Joined', callback_data: 'joined' }]);
 
-        ctx.replyWithMarkdown(text, { reply_markup: { inline_keyboard: inlineKeyboard } })
+        ctx.replyWithMarkdown(text, { reply_markup: { inline_keyboard: inlineKeyboard } });
     } catch (e) {
-        console.log(e)
-        senderr(e)
+        console.log(e);
+        senderr(e);
     }
 }
-
 async function joinCheck(userId, data) {
     try {
         let isUserJoined = true;

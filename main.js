@@ -1114,9 +1114,16 @@ async function sendJoined(ctx, data) {
             return [{ text: `Channel ${index + 1}`, url: url }];
         });
 
-        inlineKeyboard.push([{ text: '🟢 Joined', callback_data: 'joined' }]);
+        // Send the message with the inline keyboard for channels
+        await ctx.replyWithMarkdown(text, { reply_markup: { inline_keyboard: inlineKeyboard } });
 
-        ctx.replyWithMarkdown(text, { reply_markup: { inline_keyboard: inlineKeyboard } });
+        // Send the custom keyboard with the "🟢 Joined" button
+        await ctx.replyWithMarkdown("Click '🟢 Joined' after joining all channels", {
+            reply_markup: {
+                keyboard: [['🟢 Joined']],
+                resize_keyboard: true
+            }
+        });
     } catch (e) {
         console.log(e);
         senderr(e);
